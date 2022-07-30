@@ -1,0 +1,32 @@
+//Counting, Size and Area of Fluorescent Protein Droplets visualized by 63x Objective   
+
+//Rename
+rename("1");
+//Dark Background
+run("Options...", "iterations=1 count=1 black");
+
+//run("Brightness/Contrast...");
+run("Enhance Contrast", "saturated=0.35");
+
+//Subtract Background
+run("Subtract...", "value=8");
+
+//Change Gamma
+run("Gamma...", "value=1");
+
+//Dark Backgroung
+setOption("BlackBackground", true);
+
+//Blur Pixels
+run("Gaussian Blur...", "sigma=2");
+
+//Threshold to detect Droplets
+setThreshold(20, 255);
+run("Convert to Mask");
+
+//Define Overlayed Droplets as 2 different objects
+run("Watershed");
+
+//Particles analysis
+run("Analyze Particles...", "  show=[Outlines] display exclude clear summarize in_situ");
+
